@@ -1,0 +1,3 @@
+[submodule "z21-hs"]
+	path = z21-hs
+	url = https://github.com/akru/z21-hs
