@@ -8,6 +8,7 @@ import Network.Ethereum.Web3
 import Network.Wai.Handler.Warp (run)
 import Network.Miku
 import qualified System.Hardware.Z21 as Z
+import Control.Monad.Trans.Class (lift)
 import Control.Monad.IO.Class (liftIO)
 import System.Environment (getEnv)
 import Data.String (fromString)
@@ -38,28 +39,28 @@ marketMonitor ml mr = do
     liftIO . (putStr "Market B - " >>) . print =<< name mr
 
     event ml $ \(OrderClosed o _) -> do
-        price <- priceOf ml o
+        price <- lift $ priceOf ml o
         liftIO $ do
             putStrLn $ "Order on market LEFT closed, price = " ++ show price
             writeChan c (Left price)
         return ContinueEvent
 
     event mr $ \(OrderClosed o _) -> do
-        price <- priceOf mr o
+        price <- lift $ priceOf mr o
         liftIO $ do
             putStrLn $ "Order on market RIGHT closed, price = " ++ show price
             writeChan c (Right price)
         return ContinueEvent
 
     event ml $ \(OrderPartial o _) -> do
-        price <- priceOf ml o
+        price <- lift $ priceOf ml o
         liftIO $ do
             putStrLn $ "Order on market LEFT partial, price = " ++ show price
             writeChan c (Left price)
         return ContinueEvent
 
     event mr $ \(OrderPartial o _) -> do
-        price <- priceOf mr o
+        price <- lift $ priceOf mr o
         liftIO $ do
             putStrLn $ "Order on market RIGHT partial, price = " ++ show price
             writeChan c (Right price)
