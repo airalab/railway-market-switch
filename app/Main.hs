@@ -1,24 +1,24 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE QuasiQuotes       #-}
 module Main where
 
-import Network.Ethereum.Web3.TH
-import Network.Ethereum.Web3
+import           Network.Ethereum.Web3
+import           Network.Ethereum.Web3.TH
 
-import Network.Wai.Handler.Warp (run)
-import Control.Logging (log', warn, withStderrLogging)
-import qualified System.Hardware.Z21 as Z
-import Control.Monad.Trans.Class (lift)
-import Control.Monad.IO.Class (liftIO)
-import System.Environment (getEnv)
-import Data.String (fromString)
-import Control.Concurrent.Chan
-import Control.Concurrent
-import Data.Monoid ((<>))
-import Data.Text (pack)
-import Control.Monad
-import Network.Miku
-import Data.Queue
+import           Control.Concurrent
+import           Control.Concurrent.Chan
+import           Control.Logging           (log', warn, withStderrLogging)
+import           Control.Monad
+import           Control.Monad.IO.Class    (liftIO)
+import           Control.Monad.Trans.Class (lift)
+import           Data.Monoid               ((<>))
+import           Data.Queue
+import           Data.String               (fromString)
+import           Data.Text                 (pack)
+import           Network.Miku
+import           Network.Wai.Handler.Warp  (run)
+import           System.Environment        (getEnv)
+import qualified System.Hardware.Z21       as Z
 
 [abiFrom|abi/Market.json|]
 
@@ -109,11 +109,11 @@ railwayController = do
         dequeue' s = do x <- dequeue s
                         case x of
                             Nothing -> dequeue' s
-                            Just y -> return y
+                            Just y  -> return y
         dequeueAll s = do x <- dequeue s
                           case x of
                             Nothing -> return ()
-                            Just y -> dequeueAll s
+                            Just y  -> dequeueAll s
 
 controller :: Chan (Either Integer Integer)
            -> Chan (Either () ())
