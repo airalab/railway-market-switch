@@ -43,6 +43,7 @@ packages:
 extra-deps:
 - web3-0.5.5.0
 - miku-2016.3.17
+- logging-3.0.4
 - queue-0.1.2
 
 # Override default flag values for local packages and extra-deps

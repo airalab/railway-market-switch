@@ -17,5 +17,13 @@ executable switcher
   hs-source-dirs:      app
   main-is:             Main.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  build-depends:       base, web3, z21, miku, warp, queue, transformers
+  build-depends:       base
+                     , z21
+                     , web3
+                     , miku
+                     , warp
+                     , text
+                     , queue
+                     , logging
+                     , transformers
   default-language:    Haskell2010
